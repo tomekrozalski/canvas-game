@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import '$lib/utils/styles/variables.css';
+	import '$lib/utils/styles/global.css';
+
+	import Board from '$lib/Board/Board.svelte';
+</script>
+
+<Board />
