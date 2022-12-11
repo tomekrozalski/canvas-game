@@ -26,11 +26,16 @@ export type CellCoordinates = {
 	row: number;
 };
 
+export type SingleCellData = {
+	isHighlighted: boolean;
+	isBuildable: boolean;
+	// content?: CellContentType;
+};
+
+export type CellRowData = {
+	[column: number]: SingleCellData;
+};
+
 export type CellData = {
-	[row: number]: {
-		[column: number]: {
-			isAvailable: boolean;
-			content?: CellContentType;
-		};
-	};
+	[row: number]: CellRowData;
 };

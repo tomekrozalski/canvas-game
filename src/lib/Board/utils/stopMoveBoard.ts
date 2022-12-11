@@ -1,6 +1,8 @@
-import { boardPositionData } from './store';
+import { boardPositionData, resetCellProperties } from './store';
 
 const stopMove = () => {
+	resetCellProperties({ isHighlighted: false });
+
 	boardPositionData.update((data) => ({
 		...data,
 		isDragable: false,

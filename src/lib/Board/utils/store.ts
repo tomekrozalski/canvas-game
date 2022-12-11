@@ -4,7 +4,9 @@ import type {
 	BoardSizeType,
 	CellCoordinates,
 	CellData,
-	ViewSizeType
+	ViewSizeType,
+	SingleCellData,
+	CellRowData
 } from './types';
 
 export const boardSize = writable<BoardSizeType>({
@@ -38,3 +40,22 @@ export const cellsArray = derived<typeof cells, CellCoordinates[]>(cells, ($cell
 		.map(([row, values]) => Object.keys(values).map((column) => ({ row: +row, column: +column })))
 		.flat()
 );
+
+export const resetCellProperties = (props: { [value: string]: boolean }) =>
+	cells.update((data) =>
+		Object.entries(data).reduce(
+			(rowAccumulator: { [value: string]: CellRowData }, [rowIndex, columns]) => {
+				const updatedColumns = Object.entries(columns).reduce(
+					(columnAccumulator: { [value: string]: SingleCellData }, [columnIndex, field]) => {
+						columnAccumulator[columnIndex] = { ...field, ...props };
+						return columnAccumulator;
+					},
+					{}
+				);
+
+				rowAccumulator[rowIndex] = updatedColumns;
+				return rowAccumulator;
+			},
+			{}
+		)
+	);
